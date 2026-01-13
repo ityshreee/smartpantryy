@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartPantry - Reduce Food Waste</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0f172a;
+    font-family: Arial, sans-serif;
+    color: #e2e8f0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: #0f172a;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-block h1 {
+    margin: 0 0 4px 12px;
+}
+
+.subtitle {
+    margin-left: 12px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+input, select {
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+    background: #0f172a;
+    color: white;
+}
+
+.btn {
+    background: #f59e0b;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #0f172a;
+    text-decoration: none;
+}
+
+.btn-small {
+    background: #ef4444;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+.list-item {
+    background: #0f172a;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="logo">SP</div>
+    <div class="title-block">
+        <h1>SmartPantry</h1>
+        <p class="subtitle">A simple way to manage groceries & reduce food waste</p>
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <!-- PANTRY SECTION -->
+    <section class="card">
+        <h2>Your Pantry Items</h2>
+        <p>Add and track groceries so you never forget expiry dates.</p>
+
+        <form class="form-row">
+            <input type="text" placeholder="Item name">
+            <input type="date">
+            <button type="button" class="btn">Add</button>
+        </form>
+
+        <ul class="list">
+            <li class="list-item">
+                Milk — <span>Expires: 2025-12-15</span>
+                <button class="btn-small">Remove</button>
+            </li>
+            <li class="list-item">
+                Bread — <span>Expires: 2025-12-12</span>
+                <button class="btn-small">Remove</button>
+            </li>
+        </ul>
+    </section>
+
+    <!-- MEAL PLANNER SECTION -->
+    <section class="card">
+        <h2>Meal Planner</h2>
+        <p>Select meals and reduce waste by planning ahead.</p>
+
+        <form class="form-row">
+            <input type="date">
+            <select>
+                <option>Select Meal</option>
+                <option>Pasta</option>
+                <option>Salad</option>
+                <option>Veg Curry</option>
+            </select>
+            <button type="button" class="btn">Add</button>
+        </form>
+
+        <ul class="list">
+            <li class="list-item">
+                2025-12-12 — Pasta
+            </li>
+        </ul>
+
+        <!-- LINK TO RECIPE PAGE -->
+        <a href="recipe.html" class="btn">Go to Recipes →</a>
+    </section>
+
+</div>
+
+</body>
+</html>
+
