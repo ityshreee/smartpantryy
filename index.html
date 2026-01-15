@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recipe Suggestions</title>
+<title>SmartPantry - Reduce Food Waste</title>
 
 <style>
 body {
@@ -34,9 +34,21 @@ body {
     justify-content: center;
 }
 
+.title-block h1 {
+    margin: 0 0 4px 12px;
+}
+
+.subtitle {
+    margin-left: 12px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
 .container {
     max-width: 900px;
     margin: auto;
+    display: grid;
+    gap: 20px;
     padding: 20px;
 }
 
@@ -49,13 +61,14 @@ body {
 .form-row {
     display: flex;
     gap: 10px;
+    margin-bottom: 12px;
 }
 
-input {
-    flex: 1;
+input, select {
     padding: 8px;
     border-radius: 8px;
     border: none;
+    width: 100%;
     background: #0f172a;
     color: white;
 }
@@ -71,6 +84,15 @@ input {
     text-decoration: none;
 }
 
+.btn-small {
+    background: #ef4444;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
 .list {
     list-style: none;
     padding: 0;
@@ -80,70 +102,185 @@ input {
     background: #0f172a;
     padding: 10px;
     border-radius: 8px;
-    margin-top: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn-remove {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.btn-remove:hover {
+    background-color: #dc2626;
 }
 </style>
 </head>
 
 <body>
 
+
 <header class="header">
     <div class="logo">SP</div>
-    <h1 style="margin-left:12px;">Recipe Suggestions</h1>
+    <div class="title-block">
+        <h1>SmartPantry</h1>
+        <p class="subtitle">A simple way to manage groceries & reduce food waste</p>
+    </div>
 </header>
+
 
 <div class="container">
 
-    
-    <a href="index.html" class="btn">← Back</a>
-
+   
     <section class="card">
-        <h2>Items Left</h2>
+        <h2>Your Pantry Items</h2>
+        <p>Add and track groceries so you never forget expiry dates.</p>
 
-        <div class="form-row">
-            <input type="text" id="itemInput" placeholder="e.g. bread, milk">
-            <button onclick="findRecipe()" class="btn">Find</button>
-        </div>
+        <form class="form-row">
+            <input type="text" placeholder="Item name">
+            <input type="date">
+            <button type="button" class="btn">Add</button>
+        </form>
 
-        <h3>Suggested Recipes:</h3>
-        <ul class="list" id="recipeList"></ul>
+        <ul class="list">
+            <li  class="list-item">
+                Milk — Expires: 2025-12-15
+                <button class="btn-remove">Remove</button>
+            </li>
+            <li class="list-item">
+                Bread — Expires: 2025-12-12
+                <button class="btn-remove">Remove</button>
+            </li>
+        </ul>
+    </section>
+
+    
+    <section class="card">
+        <h2>Meal Planner</h2>
+        <p>Select meals and reduce waste by planning ahead.</p>
+
+        <form class="form-row">
+            <input type="date">
+            <select>
+                <option>Select Meal</option>
+                <option>Pasta</option>
+                <option>Salad</option>
+                <option>Veg Curry</option>
+            </select>
+            <button type="button" class="btn">Add</button>
+        </form>
+
+        <ul class="list">
+            <li class="list-item">
+                2025-12-12 — Pasta
+            </li>
+        </ul>
+
+        
+        <a href="recipe.html" class="btn">Go to Recipes →</a>
     </section>
 
 </div>
-
 <script>
-const recipes = [
-    { name: "Bread Upma", items: ["bread"] },
-    { name: "Milkshake", items: ["milk"] },
-    { name: "Veg Pulao", items: ["rice"] },
-    { name: "Omelette", items: ["egg"] }
-];
 
-function findRecipe() {
-    const input = document.getElementById("itemInput").value.toLowerCase();
-    const list = document.getElementById("recipeList");
-    list.innerHTML = "";
 
-    if (input.trim() === "") {
-        list.innerHTML = "<li class='list-item'>Enter some items</li>";
-        return;
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+ 
+  const addBtn = document.querySelector('.form-row .btn');
+  const itemNameInput = document.querySelector('input[placeholder="Item name"]');
+  const expiryDateInput = document.querySelector('input[type="date"]');
+  const itemsList = document.querySelector('.list');
+
+  
+  addBtn.addEventListener('click', function(e) {
+    e.preventDefault(); 
+    
+    const itemName = itemNameInput.value.trim();
+    const expiryDate = expiryDateInput.value;
+    
+   
+    if (!itemName || !expiryDate) {
+      alert('Please enter both item name and expiry date');
+      return;
     }
-
-    const items = input.split(",").map(i => i.trim());
-    let found = false;
-
-    recipes.forEach(r => {
-        if (r.items.some(item => items.includes(item))) {
-            found = true;
-            list.innerHTML += `<li class="list-item">${r.name}</li>`;
-        }
+    
+   
+    const newItem = document.createElement('li');
+    newItem.className = 'list-item';
+newItem.innerHTML = `
+  ${itemName} — Expires: ${expiryDate}
+  <button class="btn-remove">Remove</button>
+`;
+    
+   
+    itemsList.appendChild(newItem);
+    
+    
+    itemNameInput.value = '';
+    expiryDateInput.value = '';
+    
+   
+    const removeBtn = newItem.querySelector('.btn-remove');
+    removeBtn.addEventListener('click', function() {
+      newItem.remove();
     });
-
-    if (!found) {
-        list.innerHTML = "<li class='list-item'>No recipe found</li>";
-    }
-}
+  });
+  
+  
+  document.querySelectorAll('.btn-remove').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.parentElement.remove();
+    });
+  });
+  
+  
+  
+  const mealAddBtn = document.querySelectorAll('.btn')[1]; 
+  const mealDateInput = document.querySelectorAll('input[type="date"]')[1];
+  const mealSelect = document.querySelector('select');
+  const mealsList = document.querySelectorAll('.list')[1]; 
+  
+  if (mealAddBtn && mealDateInput && mealSelect && mealsList) {
+    mealAddBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const mealDate = mealDateInput.value;
+      const mealName = mealSelect.value;
+      
+      if (!mealDate || !mealName) {
+        alert('Please select both date and meal');
+        return;
+      }
+      
+      
+      const newMeal = document.createElement('li');
+      newMeal.className = 'list-item';
+      newMeal.textContent = `${mealDate} — ${mealName}`;
+      
+      
+      mealsList.appendChild(newMeal);
+      
+     
+      mealDateInput.value = '';
+      mealSelect.selectedIndex = 0;
+    });
+  }
+  
+});
 </script>
 
 </body>
 </html>
+</body>
+</html>
+
