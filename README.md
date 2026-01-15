@@ -47,7 +47,7 @@ smartpantryy/
 ## 🧪 How to Run Locally
 1. Fork this repository  
 2. Clone the forked repo:
-git clone https://github.com/your-username/smartpantryy.git
+git clone https://github.com/ityshreee/smartpantryy.git
 3. Open `index.html` in your browser  
 
 ---
