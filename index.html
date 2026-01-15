@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartPantry - Reduce Food Waste</title>
+<title>Recipe Suggestions</title>
 
 <style>
 body {
@@ -34,21 +34,9 @@ body {
     justify-content: center;
 }
 
-.title-block h1 {
-    margin: 0 0 4px 12px;
-}
-
-.subtitle {
-    margin-left: 12px;
-    color: #94a3b8;
-    font-size: 14px;
-}
-
 .container {
     max-width: 900px;
     margin: auto;
-    display: grid;
-    gap: 20px;
     padding: 20px;
 }
 
@@ -61,14 +49,13 @@ body {
 .form-row {
     display: flex;
     gap: 10px;
-    margin-bottom: 12px;
 }
 
-input, select {
+input {
+    flex: 1;
     padding: 8px;
     border-radius: 8px;
     border: none;
-    width: 100%;
     background: #0f172a;
     color: white;
 }
@@ -84,15 +71,6 @@ input, select {
     text-decoration: none;
 }
 
-.btn-small {
-    background: #ef4444;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
 .list {
     list-style: none;
     padding: 0;
@@ -102,79 +80,70 @@ input, select {
     background: #0f172a;
     padding: 10px;
     border-radius: 8px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 8px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
     <div class="logo">SP</div>
-    <div class="title-block">
-        <h1>SmartPantry</h1>
-        <p class="subtitle">A simple way to manage groceries & reduce food waste</p>
-    </div>
+    <h1 style="margin-left:12px;">Recipe Suggestions</h1>
 </header>
 
-<!-- MAIN CONTENT -->
 <div class="container">
 
-    <!-- PANTRY SECTION -->
+    
+    <a href="index.html" class="btn">← Back</a>
+
     <section class="card">
-        <h2>Your Pantry Items</h2>
-        <p>Add and track groceries so you never forget expiry dates.</p>
+        <h2>Items Left</h2>
 
-        <form class="form-row">
-            <input type="text" placeholder="Item name">
-            <input type="date">
-            <button type="button" class="btn">Add</button>
-        </form>
+        <div class="form-row">
+            <input type="text" id="itemInput" placeholder="e.g. bread, milk">
+            <button onclick="findRecipe()" class="btn">Find</button>
+        </div>
 
-        <ul class="list">
-            <li class="list-item">
-                Milk — <span>Expires: 2025-12-15</span>
-                <button class="btn-small">Remove</button>
-            </li>
-            <li class="list-item">
-                Bread — <span>Expires: 2025-12-12</span>
-                <button class="btn-small">Remove</button>
-            </li>
-        </ul>
-    </section>
-
-    <!-- MEAL PLANNER SECTION -->
-    <section class="card">
-        <h2>Meal Planner</h2>
-        <p>Select meals and reduce waste by planning ahead.</p>
-
-        <form class="form-row">
-            <input type="date">
-            <select>
-                <option>Select Meal</option>
-                <option>Pasta</option>
-                <option>Salad</option>
-                <option>Veg Curry</option>
-            </select>
-            <button type="button" class="btn">Add</button>
-        </form>
-
-        <ul class="list">
-            <li class="list-item">
-                2025-12-12 — Pasta
-            </li>
-        </ul>
-
-        <!-- LINK TO RECIPE PAGE -->
-        <a href="recipe.html" class="btn">Go to Recipes →</a>
+        <h3>Suggested Recipes:</h3>
+        <ul class="list" id="recipeList"></ul>
     </section>
 
 </div>
 
+<script>
+const recipes = [
+    { name: "Bread Upma", items: ["bread"] },
+    { name: "Milkshake", items: ["milk"] },
+    { name: "Veg Pulao", items: ["rice"] },
+    { name: "Omelette", items: ["egg"] }
+];
+
+function findRecipe() {
+    const input = document.getElementById("itemInput").value.toLowerCase();
+    const list = document.getElementById("recipeList");
+    list.innerHTML = "";
+
+    if (input.trim() === "") {
+        list.innerHTML = "<li class='list-item'>Enter some items</li>";
+        return;
+    }
+
+    const items = input.split(",").map(i => i.trim());
+    let found = false;
+
+    recipes.forEach(r => {
+        if (r.items.some(item => items.includes(item))) {
+            found = true;
+            list.innerHTML += `<li class="list-item">${r.name}</li>`;
+        }
+    });
+
+    if (!found) {
+        list.innerHTML = "<li class='list-item'>No recipe found</li>";
+    }
+}
+</script>
+
 </body>
 </html>
-
